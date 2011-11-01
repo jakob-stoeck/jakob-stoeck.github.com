@@ -382,11 +382,48 @@ The standard specifies templates for the most important types of transducers. [H
 
 This template is intended for use with dynamic accelerometers and force transducers which are constant-current powered, or IEPE. (Excerpt) [NAT]
 
-|Select|Select|Property/Command|Description|Access|Bits|Data Type (and Range)|Units|
-|-|-|-|-|-|-|-|-|
-|-|-|TEMPLATE|Template ID|-|8|Integer (value = 25)|-|
-|0 (Accel)|0|%Sens@Ref|Sensitivity @ ref. condition|CAL|16|ConRelRes (5E-7 to 172, ±0.015%)|V/(m/s²)|
-|-|-|%TF_HP_S|High pass cut-off freq. (F hp)|CAL|8|ConRelRes (0.005 to 13k, ±3%)|Hz|
+<table>
+<tr>
+	<th>Select</th>
+	<th>Select</th>
+	<th>Property/Command</th>
+	<th>Description</th>
+	<th>Access</th>
+	<th>Bits</th>
+	<th>Data Type (and Range)</th>
+	<th>Units</th>
+</tr>
+<tr>
+	<td>-</td>
+	<td>-</td>
+	<td>TEMPLATE</td>
+	<td>Template ID</td>
+	<td>-</td>
+	<td>8</td>
+	<td>Integer (value = 25)</td>
+	<td>-</td>
+</tr>
+<tr>
+	<td>0 (Accel)</td>
+	<td>0</td>
+	<td>%Sens@Ref</td>
+	<td>Sensitivity @ ref. condition</td>
+	<td>CAL</td>
+	<td>16</td>
+	<td>ConRelRes (5E-7 to 172, ±0.015%)</td>
+	<td>V/(m/s²)</td>
+</tr>
+<tr>
+	<td>-</td>
+	<td>-</td>
+	<td>%TF_HP_S</td>
+	<td>High pass cut-off freq. (F hp)</td>
+	<td>CAL</td>
+	<td>8</td>
+	<td>ConRelRes (0.005 to 13k, ±3%)</td>
+	<td>Hz</td>
+</tr>
+</table>
 
 #### Further Information
 
@@ -398,14 +435,57 @@ This template is intended for use with dynamic accelerometers and force transduc
 
 ### Comparison
 
-| |SensorML|TransducerML|IEEE1451|O&M|
-|-|-|-|-|-|
-|Sensor Data|yes|yes|no|yes|
-|Sensor Descr.|yes|yes|yes|no|
-|Mult. Sensor Interation|no|yes|yes|?|
-|Footprint|medium|medium|small|big|
-|Active|yes|?|yes|?|
-|Data Format|XML|XML|propr.|XML|
+<table>
+<tr>
+	<th> </th>
+	<th>SensorML</th>
+	<th>TransducerML</th>
+	<th>IEEE1451</th>
+	<th>O&amp;M</th>
+</tr>
+<tr>
+	<th>Sensor Data</th>
+	<td>yes</td>
+	<td>yes</td>
+	<td>no</td>
+	<td>yes</td>
+</tr>
+<tr>
+	<th>Sensor Descr.</th>
+	<td>yes</td>
+	<td>yes</td>
+	<td>yes</td>
+	<td>no</td>
+</tr>
+<tr>
+	<th>Mult. Sensor Interation</th>
+	<td>no</td>
+	<td>yes</td>
+	<td>yes</td>
+	<td>?</td>
+</tr>
+<tr>
+	<th>Footprint</th>
+	<td>medium</td>
+	<td>medium</td>
+	<td>small</td>
+	<td>big</td>
+</tr>
+<tr>
+	<th>Active</th>
+	<td>yes</td>
+	<td>?</td>
+	<td>yes</td>
+	<td>?</td>
+</tr>
+<tr>
+	<th>Data Format</th>
+	<td>XML</td>
+	<td>XML</td>
+	<td>propr.</td>
+	<td>XML</td>
+</tr>
+</table>
 
 ### Conclusion
 
