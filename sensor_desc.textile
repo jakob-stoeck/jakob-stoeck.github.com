@@ -1,21 +1,19 @@
----
-title: Literature review for standards in sensor descriptions
----
+h1. Literature review for standards in sensor descriptions
 
-## Literature review for standards in sensor descriptions
+h2. Literature review for standards in sensor descriptions
 
 Those are my notes while finding an industry-standard for the description of sensors and sensor data.
 
-### SensorML
+h3. SensorML
 
 process/provider-centric
 
-> The ability to easily discover, access, and process sensors existing within different communities is very rare. SensorML provides a common framework for describing virtually any sensor system, as well as the processing that might be associated with these sensor systems. [SML]
+bq. The ability to easily discover, access, and process sensors existing within different communities is very rare. SensorML provides a common framework for describing virtually any sensor system, as well as the processing that might be associated with these sensor systems. [SML]
 
 * Detectors take one input and generate one or more output values. In SensorML "processes" if they are not connected to a spatial or temporal domain, "components" otherwise.
 * Sensors are several processes linked together. They are called "process chains" with no spatial or temporal domain, "system" otherwise. They use the Composite Design pattern [PAT1995], such that a process chain itself is a process.
 
-#### Data Types (SWE)
+h4. Data Types (SWE)
 
 * primitive data types, complementing those implemented in GML
 * general purpose aggregate data types, including records, arrays, vectors and
@@ -27,7 +25,7 @@ process/provider-centric
 
 plus positional and temporal data.
 
-#### Encoding
+h4. Encoding
 
 * Text
 * Binary
@@ -35,9 +33,10 @@ plus positional and temporal data.
 * I/O Stream
 * XML Block
 
-#### Example of a simple data value
+h4. Example of a simple data value
 
-```xml
+<pre>
+<code>
 <swe:Quantity gml:id="elevationAngle" fixed="false" definition="urn:ogc:def:property:OGC:scanAngle">
 	<uom code="deg"/>
 	<swe:constraint>
@@ -51,11 +50,13 @@ plus positional and temporal data.
 		</swe:QuantityRange>
 	</swe:quality>
 </swe:Quantity>
-```
+</code>
+</pre>
 
-#### Example of a system
+h4. Example of a system
 
-```xml
+<pre>
+<code>
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ -->
 <!-- System Interface -->
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -200,9 +201,10 @@ plus positional and temporal data.
 		<component name="windChill" xlink:role="urn:ogc:def:process:OGC:process"xlink:href="urn:ogc:process:windChill_v01"/>
 	</ComponentList>
 </components>
-```
+</code>
+</pre>
 
-#### XML Schemas for SensorML
+h4. XML Schemas for SensorML
 
 * base.xsd
 * process.xsd
@@ -210,14 +212,14 @@ plus positional and temporal data.
 * system.xsd
 * sensorML.xsd
 
-#### Further Information
+h4. Further Information
 
 * http://www.opengeospatial.org/standards/sensorml
 * http://www.sensorsmag.com/networking-communications/a-sensor-model-language-moving-sensor-data-internet-967
 * [SML] OpenGIS Sensor Model Language (SensorML) http://www.opengeospatial.org/standards/sensorml
 * [PAT1995] Gamma, E., Helm, R., Johnson, R., Vlissides, J. Design Patterns: Elements of Reusable Object-Oriented Software. 395pp. Addison Wesley, 1995.
 
-### TransducerML
+h3. TransducerML
 
 data-centric
 
@@ -239,9 +241,10 @@ Purpose
 
 Transducer is a receiver and/or transmitter
 
-#### Example
+h4. Example
 
-```xml
+<pre>
+<code>
 <tml>
 	<system name="SYS01">
 		<sysClk>
@@ -281,16 +284,17 @@ Transducer is a receiver and/or transmitter
 	<data clk="12344" ref="SYS01_CAMERA_RGB24_BASE64">ABabdks2836875[…]ARBKDK==</data>
 	<!--continue data stream-->
 </tml>
-```
+</code>
+</pre>
 
-### Additional Plus: Semantic Sensor Web
+h3. Additional Plus: Semantic Sensor Web
 
-> Sensors around the globe currently collect avalanches of data about the world. The rapid development and deployment of sensor technology is intensifying the existing problem of too much data and not enough knowledge[citation needed]. With a view to alleviating this glut, sensor data can be annotated with semantic metadata to increase interoperability between heterogeneous sensor networks, as well as to provide contextual information essential for situation awareness. Semantic web techniques can greatly help with the problem of data integration and discovery as it helps map between different metadata schema in a structured way. […]
-> Additionally, real-time extension of the Semantic Sensor Web concept is being developed, called Sensor Wiki. The motivation behind this concept is to allow real-time browsing of the physical world consistent with the STT situational awareness goal. Understanding the physical world via a myriad of sensors is now possible. [wiki1]
+bq. Sensors around the globe currently collect avalanches of data about the world. The rapid development and deployment of sensor technology is intensifying the existing problem of too much data and not enough knowledge[citation needed]. With a view to alleviating this glut, sensor data can be annotated with semantic metadata to increase interoperability between heterogeneous sensor networks, as well as to provide contextual information essential for situation awareness. Semantic web techniques can greatly help with the problem of data integration and discovery as it helps map between different metadata schema in a structured way. […]
+bq. Additionally, real-time extension of the Semantic Sensor Web concept is being developed, called Sensor Wiki. The motivation behind this concept is to allow real-time browsing of the physical world consistent with the STT situational awareness goal. Understanding the physical world via a myriad of sensors is now possible. [wiki1]
 
 [wiki1]: http://en.wikipedia.org/wiki/Semantic_Sensor_Web "Semantic Sensor Web"
 
-### Observation and Measurements (O&M)
+h3. Observation and Measurements (O&M)
 
 ISO/PRF 19156
 
@@ -312,9 +316,10 @@ Sampling Features
 * related observation
 * related sampling feature - linking sampling features into complexes
 
-#### Example of an observation
+h4. Example of an observation
 
-```xml
+<pre>
+<code>
 <om:OM_Observation xmlns:om="http://www.opengis.net/om/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml/3.2" gml:id="shapeTest2" xsi:schemaLocation="http://www.opengis.net/om/2.0 http://schemas.opengis.net/om/2.0/observation.xsd">
 	<gml:description>Observation test instance</gml:description>
 	<gml:name>Shape observation test</gml:name>
@@ -340,13 +345,14 @@ Sampling Features
 		</gml:TimePeriod>
 	</om:result>
 </om:OM_Observation>
-```
+</code>
+</pre>
 
-https://www.seegrid.csiro.au/wiki/AppSchemas/ObservationsAndSampling
-http://en.wikipedia.org/wiki/Observations_and_Measurements
-http://www.geogr.uni-jena.de/fileadmin/Geoinformatik/Lehre/Diplomarbeiten/DA_Andres.pdf
+* https://www.seegrid.csiro.au/wiki/AppSchemas/ObservationsAndSampling
+* http://en.wikipedia.org/wiki/Observations_and_Measurements
+* http://www.geogr.uni-jena.de/fileadmin/Geoinformatik/Lehre/Diplomarbeiten/DA_Andres.pdf
 
-### IEEE 1451
+h3. IEEE 1451
 
 The IEEE (Institute of Electrical and Electronics Engineers) 1451 smart transducer interface standards provide the common interface and enabling technology for the connectivity of transducers to microprocessors, control and field networks, and data acquisisiton and instrumentation systems. The standardized TEDS specified by IEEE 1451.2 allows the self-description of sensors and the interfaces provide a standardized mechanism to facilitate the plug and play of sensors to networks. The network-independent smart transducer object model defined by IEEE 1451.1 allows sensor manufacturers to support multiple networks and protocols. Thus, transducer-to-network interoperabily is on the horizon. The inclusion of P1451.3 and P1451.4 to the family of 1451 standars will meet the needs of the analog transducer users for high-speed applications. [LEE00]
                      
@@ -359,15 +365,15 @@ The memory contents are divided into four areas
 * Area 3: This area contains characteristic transducer data that can be defined by the manufacturer, by calibration or by the user. They are organized into so-called templates which store defined groups of data in a summarized form.
 At least 1 template must be present for transducer description; this contains the specification
 
- * the transducer type,
- * the measured quantity,
- * the electrical output signal,
- * the required excitation,
- * the characteristic curve, etc.
+* the transducer type,
+* the measured quantity,
+* the electrical output signal,
+* the required excitation,
+* the characteristic curve, etc.
 
 The standard specifies templates for the most important types of transducers. [HBS]
 
-#### Data Types
+h4. Data Types
 
 * UNINT:￼Unsigned integer
 * Chr5:￼5-bit character
@@ -378,54 +384,15 @@ The standard specifies templates for the most important types of transducers. [H
 * ConRelRes:￼Constant relative resolution. This is a custom data type for compressed floating point values that provides a logarithmic mapping of a defined interval
 * Enumeration:￼References a defined enumerated data type defined in the template
 
-#### Example Template 25: Accelerometer and Force Transducers
+h4. Example Template 25: Accelerometer and Force Transducers
 
 This template is intended for use with dynamic accelerometers and force transducers which are constant-current powered, or IEPE. (Excerpt) [NAT]
 
-<table>
-<tr>
-	<th>Select</th>
-	<th>Select</th>
-	<th>Property/Command</th>
-	<th>Description</th>
-	<th>Access</th>
-	<th>Bits</th>
-	<th>Data Type (and Range)</th>
-	<th>Units</th>
-</tr>
-<tr>
-	<td>-</td>
-	<td>-</td>
-	<td>TEMPLATE</td>
-	<td>Template ID</td>
-	<td>-</td>
-	<td>8</td>
-	<td>Integer (value = 25)</td>
-	<td>-</td>
-</tr>
-<tr>
-	<td>0 (Accel)</td>
-	<td>0</td>
-	<td>%Sens@Ref</td>
-	<td>Sensitivity @ ref. condition</td>
-	<td>CAL</td>
-	<td>16</td>
-	<td>ConRelRes (5E-7 to 172, ±0.015%)</td>
-	<td>V/(m/s²)</td>
-</tr>
-<tr>
-	<td>-</td>
-	<td>-</td>
-	<td>%TF_HP_S</td>
-	<td>High pass cut-off freq. (F hp)</td>
-	<td>CAL</td>
-	<td>8</td>
-	<td>ConRelRes (0.005 to 13k, ±3%)</td>
-	<td>Hz</td>
-</tr>
-</table>
-
-#### Further Information
+|Select|Select|Property/Command|Description|Access|Bits|Data Type (and Range)|Units|
+|-|-|TEMPLATE|Template ID|-|8|Integer (value = 25)|-|
+|0 (Accel)|0|%Sens@Ref|Sensitivity @ ref. condition|CAL|16|ConRelRes (5E-7 to 172, ±0.015%)|V/(m/s²)|
+|-|-|%TF_HP_S|High pass cut-off freq. (F hp)|CAL|8|ConRelRes (0.005 to 13k, ±3%)|Hz|
+h4. Further Information
 
 * [LEE00] Lee, K. B.: IEEE 1451: A Standard in Support of Smart Transducer Networking http://www.nist.gov/manuscript-publication-search.cfm?pub_id=821920 Baltimore, MD, 01.01.2000
 * [HBS] HBS: TEDS - memory module in transducer - Content and editing the memory module http://www.hbm.com/fileadmin/mediapool/hbmdoc/technical/a1813.pdf
@@ -433,60 +400,16 @@ This template is intended for use with dynamic accelerometers and force transduc
 * IEEE 1451 -- A Universal Transducer Protocol Standard http://www.eesensors.com/DocsPDFs/ESP16_Atestp.pdf
 * IEEE 1451 Family of Smart Transducer Interface Standards http://grouper.ieee.org/groups/1451/0/body%20frame_files/Family-of-1451_handout.htm
 
-### Comparison
+h3. Comparison
 
-<table>
-<tr>
-	<th> </th>
-	<th>SensorML</th>
-	<th>TransducerML</th>
-	<th>IEEE1451</th>
-	<th>O&amp;M</th>
-</tr>
-<tr>
-	<th>Sensor Data</th>
-	<td>yes</td>
-	<td>yes</td>
-	<td>no</td>
-	<td>yes</td>
-</tr>
-<tr>
-	<th>Sensor Descr.</th>
-	<td>yes</td>
-	<td>yes</td>
-	<td>yes</td>
-	<td>no</td>
-</tr>
-<tr>
-	<th>Mult. Sensor Interation</th>
-	<td>no</td>
-	<td>yes</td>
-	<td>yes</td>
-	<td>?</td>
-</tr>
-<tr>
-	<th>Footprint</th>
-	<td>medium</td>
-	<td>medium</td>
-	<td>small</td>
-	<td>big</td>
-</tr>
-<tr>
-	<th>Active</th>
-	<td>yes</td>
-	<td>?</td>
-	<td>yes</td>
-	<td>?</td>
-</tr>
-<tr>
-	<th>Data Format</th>
-	<td>XML</td>
-	<td>XML</td>
-	<td>propr.</td>
-	<td>XML</td>
-</tr>
-</table>
+| |SensorML|TransducerML|IEEE1451|O&amp;M|
+|Sensor Data|yes|yes|no|yes|
+|Sensor Descr.|yes|yes|yes|no|
+|Mult. Sensor Interation|no|yes|yes|?|
+|Footprint|medium|medium|small|big|
+|Active|yes|?|yes|?|
+|Data Format|XML|XML|propr.|XML|
 
-### Conclusion
+h3. Conclusion
 
 IEEE 1451 and SensorML are the two established standards. One of them should be used to describe sensors and their data.
