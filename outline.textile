@@ -41,11 +41,21 @@ h2. Challenges
 
 The given sensor system "charging station" is a proprietary system. A sensor description needs to be created. Using the OGC standards SensorML is the way to go. It is very flexible with many optional parts, allowing the specification of complex sensor systems. Unfortunately this creates the possibility of writing the specification of one sensor in different ways.
 
-For this problem SensorML profiles were established. They go further than just checking for validity by the given XML Schemas by adding schematron templates.
-
 A pub/sub platform needs to be created, supporting multiple sensors attached via ethernet to the car PC. Sensors should be searchable by identification or service they provide, e.g. "incoming current flow" so we can later on visualize all sensors which account for a certain type of activity, e.g. all energy consuming devices. To support this functionality common semantics need to be defined.
 
 h2. Sensor Description
+
+To standardize SensorML descriptions SensorML profiles were established. They go further than just checking for validity by the given XML Schemas by adding schematron templates and have these mandatory parts:
+
+* Names and/or identification of the sensor (id within a SWE service and if possible also service independent id).
+* Keywords providing important terms that describe the sensor.
+* Information about the company/individual that operates the sensor.
+* Classification of the sensor (e.g. sensor type).
+* Location of the sensor and/or the observed area.
+* Phenomena that are observed by the sensor.
+* Outputs of the sensor (e.g. data types and unit of measurement).
+* A description of the time spans for which the SensorML document is valid (this is especially
+important in case of dynamic sensor networks like those consisting of mobile sensors).
 
 h2. Pub/Sub Platform
 
@@ -74,6 +84,7 @@ h3. Process View
 
 A high-level view of the charging process is the following.
 
+<pre>
 <code>
 Alice->Charging Station: plugs in car
 Alice->Charging Station: identifies with card
@@ -84,6 +95,7 @@ loop while Charging Station activated
 	Car PC->Car PC: publish
 end
 </code>
+</pre>
 
 Since the car PC receives absolute usage data we need to convert this into a visualizable format, e.g. by calculating the consumption rate.
 
@@ -122,18 +134,6 @@ Sensor Instance Registry - manages the link between sensors and SWE services (SI
 * InsertSensorInfo
 
 h3. SensorML Profile
-
-* Names and/or identification of the sensor (id within a SWE service and if possible also service independent id).
-* Keywords providing important terms that describe the sensor.
-* Information about the company/individual that operates the sensor.
-* Classification of the sensor (e.g. sensor type).
-* Location of the sensor and/or the observed area.
-* Phenomena that are observed by the sensor.
-* Outputs of the sensor (e.g. data types and unit of measurement).
-* A description of the time spans for which the SensorML document is valid (this is especially
-important in case of dynamic sensor networks like those consisting of mobile sensors).
-
-Can be validated against schematron file, useful for sensor operators/providers. 
 
 <pre>
 <code>
