@@ -84,6 +84,8 @@ h3. Process View
 
 A high-level view of the charging process is the following.
 
+!http://www.websequencediagrams.com/cgi-bin/cdraw?lz=QWxpY2UtPkNoYXJnaW5nIFN0YXRpb246IHBsdWdzIGluIGNhcgoADRlpZGVudGlmaWVzIHdpdGggY2FyZAoAPRAtPldhdHRtZXRlcjogYWN0aXZhdGVzCgAMCS0AbBRyZXBvcnRzIGVuZXJneSBjb25zdW1wdGlvbgpsb29wIHdoaWxlIACBKBAAVglkCgkAdRJDYXIgUEMAUgphYnNvbHV0ZQBdCAoJABwGACAKcHVibGlzaAplbmQK&s=napkin(Process View)!
+
 <pre>
 <code>
 Alice->Charging Station: plugs in car
