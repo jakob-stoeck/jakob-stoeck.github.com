@@ -1,0 +1,213 @@
+h1. Supervision, Management and Visualization of the Charging Process for Electrical Vehicles in the Scope of the Innotruck Project
+
+The goal of this study is to find a standardized way of displaying the charging process of vehicles. The supervision of the charging process is done by a sensor. The management is done by the linux-based car PC and the visualization by a computer or smartphone.
+
+The sensor energy flow should be shown on the user interface (UI). The UI should:
+
+# work on different devices (tv and smartphone)
+# support additional sensors in the future
+# have a simulation mode
+
+To accomplish this goal we need sensor metadata to
+
+# visualize the location, type and state of sensors
+# being able to realistically simulate energy flow when in simulation mode
+
+We will look at the state of the art for storing and publishing sensorical metadata. After that we will look at the sensor data flow and the visualization thereof.
+
+h2. State of the Art for Storing and Publishing Sensor (Meta-)Data
+
+The two main standards in this field are from the Open Geospatial Consortium (OGC) and the Institute of Electrical and Electronics Engineers (IEEE). The OGC has a more high-level approach standardizing sensor (meta-)data, while the IEEE standard goes deeply into the hardware specification and microprocessor implementation.
+
+Both support a plug-and-play approach, allowing new sensors to self-publish their presence.
+
+The OGC standard suite consists of SensorML, Observations and Measurements (O&M), TransducerML and Sensor Web Enablement (SWE). The first three are XML specifications for sensor descriptions, data and streamed data while the latter is a collection of interfaces for publishing, managing and subscribing to sensors.
+
+The main part of the IEEE1451 standard are the Transducer Electronic Data Sheets (TEDS). Those descriptions may be deployed in the embedded memory of the sensor or downloadable as a separate file. There are converters to convert a TEDS to SensorML for analyzing it on a more abstract level.
+
+The Plug-and-Play approach of those standardization efforts lead to movements for connecting sensors worldwide. The main effort is put into disaster management. The Sensor Web movement builds on the OGC SWE [ogcswe] to build sensor platforms. The Web of Things movement wants to web-enable sensors directly with embedded chipsets.
+
+There exist some platforms which you can use to publish and subscribe (pub/sub), the comprehensive ones being Pachube (hosted service with proprietary JSON and XML interfaces), Global Sensor Networks (GSN, installable Java software with proprietary interface) and the EU-funded OSIRIS project (installable Java software which implements the SWE).
+
+h2. Project Scope
+
+The given sensors in the Innotruck Project don't support one of those standards, yet. Since we want to support visualization, we need a high level description of the sensor and its data. This favors the OGC standards which offer a whole solution for describing, publishing and subscribing to sensors.
+
+The already established pub/sub platforms used primarily for remote sensors and environment observations have a scope which is to wide and would likely create too many obstacles implementing it into a streamlined car PC with only in-situ sensors. The SWE-provided interfaces come in handy. Building an own small pub/sub solution while using those interfaces makes sure to concentrate on the project's focus while still having loosely coupled components with standardized interfaces which could be exchanged by a more comprehensive system when needed.
+
+As mentioned, the direction of the sensor standardization movement is clearly going for web publishing as a method of sharing sensor data and so do we. The current web standard supported by most devices is HTML 5. With its audio, video and drawing capabilities we can use it to build a dynamic visualization. By rendering the visualization in this format we support a wide range of display devices.
+
+h2. Challenges
+
+The given sensor system "charging station" is a proprietary system. A sensor description needs to be created. Using the OGC standards SensorML is the way to go. It is very flexible with many optional parts, allowing the specification of complex sensor systems. Unfortunately this creates the possibility of writing the specification of one sensor in different ways.
+
+For this problem SensorML profiles were established. They go further than just checking for validity by the given XML Schemas by adding schematron templates.
+
+A pub/sub platform needs to be created, supporting multiple sensors attached via ethernet to the car PC. Sensors should be searchable by identification or service they provide, e.g. "incoming current flow" so we can later on visualize all sensors which account for a certain type of activity, e.g. all energy consuming devices. To support this functionality common semantics need to be defined.
+
+h2. Sensor Description
+
+h2. Pub/Sub Platform
+
+The SWE working group has specified a number of standards that define formats for sensor data and metadata as well as sensor service interfaces. It is divided into the information and service model:
+
+* Information Model
+** O&M
+** SensorML
+** SWE Common
+** TransducerML (TML)
+* Service Model
+** Sensor Alert Service (SAS) can be used for subscribing to alerts in case of a sensor measurement event that fulfills certain user defined criteria
+** Sensor Observation Service (SOS) [SOS] Standard web service interface for requesting, filtering, and retrieving observations and sensor system information.
+** Sensor Planning Service (SPS) can be used for tasking sensors and setting their measurement parameters.
+** Web Notification Service (WNS) is, unlike the other three services, not directly sensor related. Instead, it is a kind of helper service which provides asynchronous notification mechanisms between SWE services and clients or other SWE services
+
+For our purposes we use O&M, SensorML and SWE Common from the information model and the SOS from the service model.
+
+Sensor discovery can be thematic ("energy consumption"), spatial ("in the rear end") and temporal ("which were active on July 1st"). For the scope of this project we concentrate on thematic and spatial discovery.
+
+As mentioned under challenges, thematic discovery may be hindered by different descriptions for the same semantic meaning. To circumvent this problem the OGC uses the Web Ontology Language (OWL) for sensor ontologies. For a spatial description the OGC Catalogue Service (CS-W) is the de-facto standard [Jirka09].
+
+Additionally you may search for sensor properties or identification (for sensor instance discovery) or functionality and usage restrictions (for sensor service discovery). We won't cover them in this project. For further information on those topic see [Jirka09].
+
+h3. Process View
+
+A high-level view of the charging process is the following.
+
+<code>
+Alice->Charging Station: plugs in car
+Alice->Charging Station: identifies with card
+Charging Station->Wattmeter: activates
+Wattmeter-->Charging Station: reports energy consumption
+loop while Charging Station activated
+	Charging Station->Car PC: reports absolute energy 
+	Car PC->Car PC: publish
+end
+</code>
+
+Since the car PC receives absolute usage data we need to convert this into a visualizable format, e.g. by calculating the consumption rate.
+
+h3. Layer View
+
+The Web of Things movement uses the following layers to classify sensor publishing components.
+
+|_.Layer|_.Solution|
+|Applications|HTML 5 energy concept show case|
+|Web publishing|rss feed|
+|Data processing|real time event detection software|
+|Data storage|pub/sub|
+|Data collection|pub/sub|
+|Embedded software|proprietary firmware|
+|Communication technology|ethernet|
+|Embedded device|microcontroller with sensors|
+|Physical object|charging station|
+
+h2. Visualization
+
+UI pull data for sensors by service vs. push data by instance
+
+h2. Outlook
+
+NASA‘s Sensor Web 2.0 (Section 2.2) try to combine SWE and Web 2.0 and thereby integrate aspects of the Web of Things with SWE.
+
+h2. Appendix
+
+h3. Discovery Framework OSIRIS
+
+Sensor Instance Registry - manages the link between sensors and SWE services (SIR)
+
+* SearchSensor
+* DescribeSensor
+* HarvestService
+* InsertSensorInfo
+
+h3. SensorML Profile
+
+* Names and/or identification of the sensor (id within a SWE service and if possible also service independent id).
+* Keywords providing important terms that describe the sensor.
+* Information about the company/individual that operates the sensor.
+* Classification of the sensor (e.g. sensor type).
+* Location of the sensor and/or the observed area.
+* Phenomena that are observed by the sensor.
+* Outputs of the sensor (e.g. data types and unit of measurement).
+* A description of the time spans for which the SensorML document is valid (this is especially
+important in case of dynamic sensor networks like those consisting of mobile sensors).
+
+Can be validated against schematron file, useful for sensor operators/providers. 
+
+<pre>
+<code>
+	<?xml version="1.0" encoding="UTF-8"?>
+	<sml:Member>
+		<sml:Component xmlns:swe="http://www.opengis.net/swe/1.0.1"
+			xmlns:gml="http://www.opengis.net/gml" xmlns:p="urn:us:gov:ic:ism:v2"
+			xmlns:smil20="http://www.w3.org/2001/SMIL20/" xmlns:smil20lang="http://www.w3.org/2001/SMIL20/Language"
+			xmlns:sml="http://www.opengis.net/sensorML/1.0.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+			xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xsi:schemaLocation="http://www.opengis.net/sensorML/1.0.1 sensorML.xsd ">
+			<gml:name>Charging Station</gml:name>
+			<sml:keywords>
+				<sml:KeywordList>
+					<sml:keyword>charging station</sml:keyword>
+					<sml:keyword>wattmeter</sml:keyword>
+					<sml:keyword>currency</sml:keyword>
+				</sml:KeywordList>
+			</sml:keywords>
+			<sml:identification>
+				<sml:IdentifierList>
+					<sml:identifier>
+						<sml:Term definition="urn:ogc:def:identifier:OGC:1.0:uniqueID">
+							<sml:value>urn:ogc:object:feature:Sensor:IFGI:chargingStation123</sml:value>
+						</sml:Term>
+					</sml:identifier>
+				</sml:IdentifierList>
+			</sml:identification>
+			<sml:contact>
+				<sml:Person>
+					<sml:surname>Stoeck</sml:surname>
+					<sml:name>Jakob</sml:name>
+					<sml:userID>token</sml:userID>
+					<sml:affiliation>token</sml:affiliation>
+					<sml:phoneNumber>token</sml:phoneNumber>
+					<sml:email>stoeck@cs.tum.edu</sml:email>
+				</sml:Person>
+			</sml:contact>
+			<sml:inputs>
+				<sml:InputList>
+					<sml:input name="electricalEnergy">
+						<swe:ObservableProperty
+							definition="urn:ogc:def:property:OGC:1.0:current" />
+					</sml:input>
+				</sml:InputList>
+			</sml:inputs>
+			<sml:outputs>
+				<sml:OutputList>
+					<sml:output name="electricalEnergy">
+						<swe:Quantity definition="urn:ogc:def:property:OGC:1.0:current">
+							<swe:uom code="kW" />
+						</swe:Quantity>
+					</sml:output>
+				</sml:OutputList>
+			</sml:outputs>
+			<sml:components>
+				<sml:ComponentList>
+					<sml:component name="chargingStation"
+						xlink:href="http://www.example.org/chargingStationDescription">
+					</sml:component>
+				</sml:ComponentList>
+			</sml:components>
+		</sml:Component>
+	</sml:Member>
+</code>
+</pre>
+
+h2. Bibliography
+
+* [Jirka09] Simon Jirka, Arne Bröring and Christoph Stasch: Discovery Mechanisms for the Sensor Web
+* [ogcswe] http://www.opengeospatial.org/projects/groups/sensorwebdwg
+* [SOS] http://www.opengeospatial.org/standards/sos
+* http://geostandards.geonovum.nl/index.php/5.4.1_Sensor_Observation_Service
+* schematron: http://code.google.com/p/buddata-ebxml-registry/source/browse/trunk/ErgoRR/ErgoRR-backend/src/main/resources/resources/sensorML/validation/SensorML_Profile_for_Discovery.sch?r=510
+* http://www.swiss-experiment.ch/index.php/SwissEx:Infrastructure
+* New Generation Sensor Web Enablement: http://www.mdpi.com/1424-8220/11/3/2652
+* Web of things: http://sensorlab.ijs.si/files/publications/ESWC2011-Fortuna-Grobelnik-Web-ofThings-tutorial-abstract.pdf
