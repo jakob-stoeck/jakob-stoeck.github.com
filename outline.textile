@@ -27,7 +27,7 @@ The main part of the IEEE1451 standard are the Transducer Electronic Data Sheets
 
 The Plug-and-Play approach of those standardization efforts lead to movements for connecting sensors worldwide. The main effort is put into disaster management. The Sensor Web movement builds on the OGC SWE [ogcswe] to build sensor platforms. The Web of Things movement wants to web-enable sensors directly with embedded chipsets.
 
-There exist some platforms which you can use to publish and subscribe (pub/sub), the comprehensive ones being Pachube (hosted service with proprietary JSON and XML interfaces), Global Sensor Networks (GSN, installable Java software with proprietary interface) and the EU-funded OSIRIS project (installable Java software which implements the SWE).
+There exist some platforms which you can use to publish and subscribe (pub/sub), the comprehensive ones being Pachube (hosted service with proprietary JSON and XML interfaces), Global Sensor Networks (GSN, installable Java software with proprietary interface) and the EU-funded OSIRIS project (installable Java software which implements the SWE). All registered OGC-compliant software can be found at [OGCCOMP].
 
 h2. Project Scope
 
@@ -72,7 +72,7 @@ The SWE working group has specified a number of standards that define formats fo
 ** Sensor Planning Service (SPS) can be used for tasking sensors and setting their measurement parameters.
 ** Web Notification Service (WNS) is, unlike the other three services, not directly sensor related. Instead, it is a kind of helper service which provides asynchronous notification mechanisms between SWE services and clients or other SWE services
 
-For our purposes we use O&M, SensorML and SWE Common from the information model and the SOS from the service model.
+For our purposes we can use O&M, SensorML and SWE Common from the information model and the SOS from the service model.
 
 Sensor discovery can be thematic ("energy consumption"), spatial ("in the rear end") and temporal ("which were active on July 1st"). For the scope of this project we concentrate on thematic and spatial discovery.
 
@@ -80,14 +80,7 @@ As mentioned under challenges, thematic discovery may be hindered by different d
 
 Additionally you may search for sensor properties or identification (for sensor instance discovery) or functionality and usage restrictions (for sensor service discovery). We won't cover them in this project. For further information on those topic see [Jirka09].
 
-SOS Intro http://www.ogcnetwork.net/SOS_Intro
-Testing not comprehensive
-SOS pull-only
-SAS push-based but old, SES is coming:
-
-http://www.ogcnetwork.net/node/1223: Submitted by jechterhoff on Thu, 2009-02-12 02:20: "There is indeed functional overlap but the operations are not fully the same. SAS (I am talking about the version that went into RFC a long time ago) currently has management of sensor registrations. That is, a registration expires at some point but might be renewed or cancelled by the client. At SOS you can register and that’s it.
-
-As we are going to work on SOS 2.0 and to get SAS (or an equivalent; note that we have already been working on a prototype called Sensor Event Service [SES] which has more filter functionality) to 1.0 we will hopefully be able to harmonize the different operations."
+For visualization purposes the pull-based SOS paradigm is not the best fit. A more event-based system would be desirable. The push-based SWE service model is provided by the SAS but there are no registered reference implementations and no compliance tests. Echterhoff proposed a Sensor Event Interface (SES) which enhances the SAS, [52NORTH] unfortunately it is still a OGC discussion paper and subject to change. An implementation exists. [52NORTH2]
 
 h3. Process View
 
@@ -232,3 +225,6 @@ h2. Bibliography
 * http://www.swiss-experiment.ch/index.php/SwissEx:Infrastructure
 * New Generation Sensor Web Enablement: http://www.mdpi.com/1424-8220/11/3/2652
 * Web of things: http://sensorlab.ijs.si/files/publications/ESWC2011-Fortuna-Grobelnik-Web-ofThings-tutorial-abstract.pdf
+* [OGCCOMP] http://www.opengeospatial.org/resource/products/compliant
+* [52NORTH] http://52north.org/communities/sensorweb/ses/0.0.1/index.html
+* [52NORTH2] https://wiki.52north.org/bin/view/Sensornet/SensorEventService
