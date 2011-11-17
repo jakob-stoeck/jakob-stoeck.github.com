@@ -80,6 +80,15 @@ As mentioned under challenges, thematic discovery may be hindered by different d
 
 Additionally you may search for sensor properties or identification (for sensor instance discovery) or functionality and usage restrictions (for sensor service discovery). We won't cover them in this project. For further information on those topic see [Jirka09].
 
+SOS Intro http://www.ogcnetwork.net/SOS_Intro
+Testing not comprehensive
+SOS pull-only
+SAS push-based but old, SES is coming:
+
+http://www.ogcnetwork.net/node/1223: Submitted by jechterhoff on Thu, 2009-02-12 02:20: "There is indeed functional overlap but the operations are not fully the same. SAS (I am talking about the version that went into RFC a long time ago) currently has management of sensor registrations. That is, a registration expires at some point but might be renewed or cancelled by the client. At SOS you can register and that’s it.
+
+As we are going to work on SOS 2.0 and to get SAS (or an equivalent; note that we have already been working on a prototype called Sensor Event Service [SES] which has more filter functionality) to 1.0 we will hopefully be able to harmonize the different operations."
+
 h3. Process View
 
 A high-level view of the charging process is the following.
@@ -116,9 +125,19 @@ The Web of Things movement uses the following layers to classify sensor publishi
 |Embedded device|microcontroller with sensors|
 |Physical object|charging station|
 
+h2. Alternatives
+
+XMPP with BOSH, e.g. via http://strophe.im/
+0MQ with Mongrel2 and Websockets
+Node.js with Websockets
+
 h2. Visualization
 
 UI pull data for sensors by service vs. push data by instance
+
+h2. Testing
+
+SWE Conformity may be tested at http://cite.opengeospatial.org/teamengine
 
 h2. Outlook
 
